@@ -1,0 +1,40 @@
+
+.cx{
+ 
+    border: solid black 2px;
+    border-radius: 10px;
+    height: auto;
+    width: 400px;
+    padding: 10px;
+    background-color: rgb(255, 255, 255);
+ 
+
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    
+    
+}
+
+.inp{
+    width: 200px;
+    height: 30px;
+    margin: 10px;
+    border-radius: 5px;
+    border: solid black 1px;
+}
+
+p{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+}
+
+.btns{
+    width: 100PX;
+    height: 50PX;
+}
