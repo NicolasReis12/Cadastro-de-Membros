@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+mysqlclient
+pydantic
+python-dotenv
