@@ -1,3 +1,4 @@
+import { createMembro } from '../services/membrosService';
 import './Membros.css';
 import { useState } from 'react';
 
@@ -9,16 +10,13 @@ function Membros() {
     numero: '', complemento: '', bairro: '', cidade: '', uf: ''
   })
 
-  function handleChange(e) {
+  async function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
-    
-  }
+      console.log("Deu certo!")
+    const cepLimpo = e.target.value.replace(/\D/g, '')
+    if (cepLimpo.length !== 8) return
 
-  async function pegarCep(cep) {
-  const cepLimpo = cep.replace(/\D/g, '')
-  if (cepLimpo.length !== 8) return
-
-  try {
+    try {
     const response = await fetch(`https://viacep.com.br/ws/${cepLimpo}/json/`)
     const data = await response.json()
 
@@ -34,12 +32,13 @@ function Membros() {
   } catch (error) {
     console.error('Erro:', 'CEP não encontrado')
   }
-}
+  }
+
+ 
 
 
   function cadastrarMembro() {
-    console.log('Dados do formulário:', form)
-    // aqui vai chamar o service futuramente
+    createMembro
     setModalAberto(false)
   }
 
@@ -126,7 +125,7 @@ function Membros() {
               </div>
               <div className="form-group">
                 <label>CEP</label>
-                <input name="cep" value={form.cep} onChange={handleChange} placeholder="00000-000" />
+                <input name="cep" value={form.cep} onChange={handleChange} maxlength="8" placeholder="00000-000" />
               </div>
               <div className="form-group full">
                 <label>Logradouro</label>
@@ -134,7 +133,7 @@ function Membros() {
               </div>
               <div className="form-group">
                 <label>Número</label>
-                <input name="numero" value={form.numero} onChange={handleChange} placeholder="123" />
+                <input name="numero" value={form.numero} onChange={handleChange} placeholder="Número da residencia" />
               </div>
               <div className="form-group">
                 <label>Complemento</label>
