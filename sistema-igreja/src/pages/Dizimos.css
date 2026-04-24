@@ -1,0 +1,111 @@
+.page-dizimos {
+  padding: 1.5rem;
+  background: #f9fafb;
+  min-height: calc(100vh - 60px);
+}
+
+.dizimos-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.dizimos-header h2 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #111827;
+}
+
+.btn-cadastrar {
+  background: #1d4ed8;
+  color: #ffffff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-cadastrar:hover {
+  background: #1e40af;
+}
+
+.table-wrap {
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 0.5px solid #e5e7eb;
+  background: #ffffff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-family: sans-serif;
+}
+
+thead {
+  background: #f3f4f6;
+}
+
+th {
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 500;
+  color: #6b7280;
+  border-bottom: 1px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+td {
+  padding: 10px 14px;
+  color: #111827;
+  border-bottom: 0.5px solid #f3f4f6;
+  white-space: nowrap;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+tbody tr:hover {
+  background: #f9fafb;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-editar {
+  background: none;
+  border: 0.5px solid #d1d5db;
+  color: #374151;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-editar:hover {
+  background: #f3f4f6;
+}
+
+.btn-excluir {
+  background: none;
+  border: 0.5px solid #fca5a5;
+  color: #dc2626;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-excluir:hover {
+  background: #fef2f2;
+}

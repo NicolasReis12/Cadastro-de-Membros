@@ -14,7 +14,7 @@ function Navbar() {
           </svg>
         </div>
         <div>
-          <div className="logo-title">Igreja</div>
+          <div className="logo-title">IEQ SEDE</div>
           <div className="logo-subtitle">Sistema de membros</div>
         </div>
       </div>
