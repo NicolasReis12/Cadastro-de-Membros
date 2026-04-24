@@ -1,14 +1,24 @@
-import { createMembro } from '../services/membrosService';
+import { createMembro, getMembros } from '../services/membrosService';
 import './Membros.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function Membros() {
   const [modalAberto, setModalAberto] = useState(false)
+  const [membros, setMembros] = useState([])
   const [form, setForm] = useState({
     nome: '', email: '', telefone: '', cpf: '',
     data_nascimento: '', cep: '', logradouro: '',
     numero: '', complemento: '', bairro: '', cidade: '', uf: ''
   })
+
+  useEffect(() => {
+    carregarMembros()
+  }, [])
+
+  async function carregarMembros() {
+    const { data } = await getMembros()
+    if (data) setMembros(data)
+  }
 
   async function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -35,10 +45,14 @@ function Membros() {
   }
 
  
-
-
-  function cadastrarMembro() {
-    createMembro
+  async function cadastrarMembro() {
+    console.log("Cadastrando membro:", form)
+    const { error } = await createMembro(form)
+    if (error) {
+      console.error('Erro ao cadastrar:', error.message)
+      return
+    }
+    await carregarMembros()
     setModalAberto(false)
   }
 
@@ -72,27 +86,29 @@ function Membros() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Alfreds Futterkiste</td>
-              <td>Maria Anders</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>Germany</td>
-              <td>
-                <div className="actions">
-                  <button className="btn-editar">Editar</button>
-                  <button className="btn-excluir">Excluir</button>
-                </div>
-              </td>
-            </tr>
+            {membros.map(m => (
+              <tr key={m.id}>
+                <td>{m.id}</td>
+                <td>{m.nome}</td>
+                <td>{m.email}</td>
+                <td>{m.telefone}</td>
+                <td>{m.data_nascimento}</td>
+                <td>{m.cpf}</td>
+                <td>{m.cep}</td>
+                <td>{m.logradouro}</td>
+                <td>{m.numero}</td>
+                <td>{m.complemento}</td>
+                <td>{m.bairro}</td>
+                <td>{m.cidade}</td>
+                <td>{m.uf}</td>
+                <td>
+                  <div className="actions">
+                    <button className="btn-editar">Editar</button>
+                    <button className="btn-excluir">Excluir</button>
+                  </div>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
