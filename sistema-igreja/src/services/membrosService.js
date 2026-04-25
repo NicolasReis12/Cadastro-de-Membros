@@ -12,7 +12,6 @@ export async function createMembro(membro) {
   const { data, error } = await supabase
     .from('membros')
     .insert(membro)
-     meuForm.reset();
   return { data, error }
 }
 

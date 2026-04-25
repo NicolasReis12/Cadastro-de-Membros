@@ -46,15 +46,15 @@ function Membros() {
 
  
   async function cadastrarMembro() {
-    console.log("Cadastrando membro:", form)
     const { error } = await createMembro(form)
     if (error) {
       console.error('Erro ao cadastrar:', error.message)
       return
     }
+    console.log("Cadastrado com sucesso")
     await carregarMembros()
     setModalAberto(false)
-  }
+  } 
 
   return (
     <div className="page-membros">
@@ -76,7 +76,7 @@ function Membros() {
               <th>Data de nascimento</th>
               <th>CPF</th>
               <th>CEP</th>
-              <th>Logradouro</th>
+              <th>Rua</th>
               <th>Número</th>
               <th>Complemento</th>
               <th>Bairro</th>
