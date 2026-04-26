@@ -7,8 +7,8 @@ function Membros() {
   const [membros, setMembros] = useState([])
   const [editando, setEditando] = useState(false)
 
+  // ❌ REMOVIDO id daqui
   const initialForm = {
-    id: '',
     nome: '', email: '', telefone: '', cpf: '',
     data_nascimento: '', cep: '', logradouro: '',
     numero: '', complemento: '', bairro: '', cidade: '', uf: '',
@@ -28,7 +28,6 @@ function Membros() {
 
   async function handleChange(e) {
     const { name, value } = e.target
-
     setForm({ ...form, [name]: value })
 
     // CEP automático
@@ -62,7 +61,7 @@ function Membros() {
   }
 
   function abrirEditar(membro) {
-    setForm(membro)
+    setForm(membro) // aqui vem com id válido
     setEditando(true)
     setModalAberto(true)
   }
@@ -71,10 +70,14 @@ function Membros() {
     let error
 
     if (editando) {
+      // ✅ UPDATE usa ID
       const response = await updateMembro(form.id, form)
       error = response.error
     } else {
-      const response = await createMembro(form)
+      // ✅ REMOVE ID antes de enviar
+      const { id, ...novoForm } = form
+
+      const response = await createMembro(novoForm)
       error = response.error
     }
 
@@ -101,7 +104,6 @@ function Membros() {
       return
     }
 
-    console.log("Deletado com sucesso")
     await carregarMembros()
   }
 
@@ -182,7 +184,6 @@ function Membros() {
             <h3>{editando ? "Editar membro" : "Cadastrar membro"}</h3>
 
             <div className="form-grid">
-
               <div className="form-group">
                 <label>Nome *</label>
                 <input name="nome" value={form.nome} onChange={handleChange} />
@@ -253,10 +254,9 @@ function Membros() {
               </div>
 
               <div className="form-group">
-                <label> <b>Data do Falecimento</b></label>
+                <label>Data do Falecimento</label>
                 <input type="date" name="data_da_morte" value={form.data_da_morte} onChange={handleChange} />
               </div>
-
             </div>
 
             <div className="modal-actions">

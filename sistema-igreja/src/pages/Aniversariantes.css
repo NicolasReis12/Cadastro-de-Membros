@@ -1,0 +1,79 @@
+.page-aniversariantes {
+    padding: 24px;
+  }
+  
+  .page-aniversariantes h2 {
+    margin-bottom: 20px;
+  }
+  
+  .aniversariantes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  
+  .card-aniversariante {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    transition: 0.2s;
+  }
+  
+  .card-aniversariante:hover {
+    transform: translateY(-4px);
+  }
+  
+  .avatar {
+    width: 48px;
+    height: 48px;
+    background: #2563eb;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+  
+  .info h3 {
+    margin: 0;
+    font-size: 16px;
+  }
+  
+  .info p {
+    margin: 2px 0;
+    font-size: 13px;
+    color: #666;
+  }
+  
+  .info span {
+    font-size: 13px;
+    color: #16a34a;
+    font-weight: 500;
+  }
+  
+  .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #22c55e;
+    color: white;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 8px;
+  }
+  
+  .card-aniversariante.hoje {
+    border: 2px solid #22c55e;
+    background: #f0fdf4;
+  }
+  
+  .sem-dados {
+    color: #888;
+    font-size: 14px;
+  }
