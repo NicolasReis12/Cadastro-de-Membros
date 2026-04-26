@@ -1,16 +1,19 @@
 import './Dizimos.css';
-import { createDizimos, getDizimos } from '../services/dizimosService';
+import { createDizimos, getDizimos, deleteDizimo } from '../services/dizimosService';
 import { useState, useEffect } from 'react';
 
 function Dizimos() {
   const [modalAberto, setModalAberto] = useState(false)
   const [dizimos, setDizimos] = useState([])
-  const [form, setForm] = useState({
+
+  const initialForm = {
     nome_membro: '',
     valor: '',
     data: '',
     status: ''
-  })
+  }
+
+  const [form, setForm] = useState(initialForm)
 
   useEffect(() => {
     carregarDizimos()
@@ -25,25 +28,59 @@ function Dizimos() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
+  function abrirModal() {
+    setForm(initialForm) // sempre limpa ao abrir
+    setModalAberto(true)
+  }
+
   async function cadastrarDizimos() {
     const { error } = await createDizimos(form)
+
     if (error) {
       console.error('Erro ao cadastrar:', error.message)
       return
     }
 
     console.log("Cadastrado com sucesso")
+
     await carregarDizimos()
+
+    setForm(initialForm) // limpa depois de salvar
     setModalAberto(false)
   }
 
-  
+  async function excluirDizimo(id) {
+    if (!window.confirm("Tem certeza que deseja excluir este dízimo?")) return
+
+    const { error } = await deleteDizimo(id)
+
+    if (error) {
+      console.error('Erro ao deletar:', error.message)
+      return
+    }
+
+    console.log("Deletado com sucesso")
+    await carregarDizimos()
+  }
+
+  function formatarDataBR(data) {
+    if (!data) return ''
+    return new Date(data).toLocaleDateString('pt-BR')
+  }
+
+  function formatarValor(valor) {
+    if (!valor) return 'R$ 0,00'
+    return Number(valor).toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    })
+  }
 
   return (
     <div className="page-dizimos">
       <div className="dizimos-header">
         <h2>Cadastro de dízimos</h2>
-        <button onClick={() => setModalAberto(true)} className="btn-cadastrar">
+        <button onClick={abrirModal} className="btn-cadastrar">
           Cadastrar dízimo
         </button>
       </div>
@@ -55,7 +92,6 @@ function Dizimos() {
               <th>Nome do membro</th>
               <th>Valor</th>
               <th>Data</th>
-              {/* <th>Status</th> */}
               <th>Ações</th>
             </tr>
           </thead>
@@ -64,13 +100,14 @@ function Dizimos() {
             {dizimos.map(d => (
               <tr key={d.id}>
                 <td>{d.nome_membro}</td>
-                <td>{d.valor}</td>
-                <td>{d.data}</td>
-                {/* <td>{d.status}</td> */}
+                <td>{formatarValor(d.valor)}</td>
+                <td>{formatarDataBR(d.data)}</td>
                 <td>
                   <div className="actions">
                     <button className="btn-editar">Editar</button>
-                    <button className="btn-excluir">Excluir</button>
+                    <button onClick={() => excluirDizimo(d.id)} className="btn-excluir">
+                      Excluir
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -99,7 +136,7 @@ function Dizimos() {
                 <label>Valor</label>
                 <input
                   name="valor"
-                  type='number'
+                  type="number"
                   value={form.valor}
                   onChange={handleChange}
                   placeholder="R$ 0,00"
