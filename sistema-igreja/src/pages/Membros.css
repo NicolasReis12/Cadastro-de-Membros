@@ -211,6 +211,10 @@ tbody tr:hover {
   background: #1e40af;
 }
 
+.form-group label {
+  font-weight: 600; /* mais elegante que bold */
+}
+
 select {
   width: 100%;
   padding: 10px 14px;
