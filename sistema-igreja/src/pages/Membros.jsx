@@ -8,7 +8,7 @@ function Membros() {
   const [form, setForm] = useState({
     nome: '', email: '', telefone: '', cpf: '',
     data_nascimento: '', cep: '', logradouro: '',
-    numero: '', complemento: '', bairro: '', cidade: '', uf: ''
+    numero: '', complemento: '', bairro: '', cidade: '', uf: '', falecido: '', data_da_morte: ''
   })
 
   useEffect(() => {
@@ -56,6 +56,12 @@ function Membros() {
     setModalAberto(false)
   } 
 
+  function formatarDataBR(data) {
+    if (!data) return ''
+  
+    return new Date(data).toLocaleDateString('pt-BR')
+  }
+
   return (
     <div className="page-membros">
       <div className="membros-header">
@@ -69,12 +75,13 @@ function Membros() {
         <table>
           <thead>
             <tr>
-              <th>Id</th>
               <th>Nome</th>
               <th>Email</th>
               <th>Telefone</th>
               <th>Data de nascimento</th>
               <th>CPF</th>
+              <th>Falecido</th>
+              <th>Data da Morte</th>
               <th>CEP</th>
               <th>Rua</th>
               <th>Número</th>
@@ -88,12 +95,13 @@ function Membros() {
           <tbody>
             {membros.map(m => (
               <tr key={m.id}>
-                <td>{m.id}</td>
                 <td>{m.nome}</td>
                 <td>{m.email}</td>
                 <td>{m.telefone}</td>
-                <td>{m.data_nascimento}</td>
+                <td>{formatarDataBR(m.data_nascimento)}</td>
                 <td>{m.cpf}</td>
+                <td>{m.falecido}</td>
+                <td>{formatarDataBR(m.data_da_morte)}</td>
                 <td>{m.cep}</td>
                 <td>{m.logradouro}</td>
                 <td>{m.numero}</td>
@@ -132,12 +140,29 @@ function Membros() {
                 <input name="telefone" value={form.telefone} onChange={handleChange} placeholder="(00) 00000-0000" />
               </div>
               <div className="form-group">
-                <label>CPF</label>
-                <input name="cpf" value={form.cpf} onChange={handleChange} placeholder="000.000.000-00" />
+                <label>Falecido</label>
+                <select
+                  name="falecido"
+                  value={form.falecido}
+                  onChange={handleChange}
+                >
+                  <option value="">Selecione</option>
+                  <option value="Sim">Sim</option>
+                  <option value="Não">Não</option>
+                </select> 
               </div>
               <div className="form-group">
+                <label>Data da morte</label>
+                <input name="data_da_morte" type="date" maxLength={8}value={form.data_da_morte} onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <label>CPF</label>
+                <input name="cpf" value={form.cpf} maxLength={11} onChange={handleChange} placeholder="000.000.000-00" />
+              </div>
+            
+              <div className="form-group">
                 <label>Data de nascimento</label>
-                <input name="data_nascimento" type="date" value={form.data_nascimento} onChange={handleChange} />
+                <input name="data_nascimento" type="date" maxLength={8} value={form.data_nascimento} onChange={handleChange} />
               </div>
               <div className="form-group">
                 <label>CEP</label>

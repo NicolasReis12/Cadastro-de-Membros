@@ -210,3 +210,42 @@ tbody tr:hover {
 .btn-salvar:hover {
   background: #1e40af;
 }
+
+select {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+  cursor: pointer;
+
+  /* remove estilo padrão */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* seta customizada */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' height='20' viewBox='0 0 20 20' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M5 7l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+/* hover */
+.input-select:hover {
+  border-color: #4f46e5;
+}
+
+/* foco */
+.input-select:focus {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+}
+
+/* quando desabilitado */
+.input-select:disabled {
+  background-color: #f3f4f6;
+  cursor: not-allowed;
+}

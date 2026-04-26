@@ -8,7 +8,7 @@ export async function getDizimos() {
   return { data, error }
 }
 
-export async function createDizimo(dizimo) {
+export async function createDizimos(dizimo) {
   const { data, error } = await supabase
     .from('dizimos')
     .insert(dizimo)
