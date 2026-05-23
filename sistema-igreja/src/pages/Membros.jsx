@@ -67,15 +67,17 @@ function Membros() {
       } else if (name === 'telefone' && valor && !validatePhone(valor)) {
         next[name] = 'Telefone inválido (10 ou 11 dígitos)'
       } else if (name === 'data_nascimento' && valor) {
-        const dataNasc = new Date(valor)
-        if (dataNasc > new Date()) {
+        if (!validateDataBR(valor)) {
+          next[name] = 'Data inválida (DD/MM/AAAA)'
+        } else if (isDataFutura(convertDDMMYYYYtoYYYYMMDD(valor))) {
           next[name] = 'Data não pode ser no futuro'
         } else {
           delete next[name]
         }
       } else if (name === 'data_da_morte' && valor) {
-        const dataMorte = new Date(valor)
-        if (dataMorte > new Date()) {
+        if (!validateDataBR(valor)) {
+          next[name] = 'Data inválida (DD/MM/AAAA)'
+        } else if (isDataFutura(convertDDMMYYYYtoYYYYMMDD(valor))) {
           next[name] = 'Data não pode ser no futuro'
         } else {
           delete next[name]

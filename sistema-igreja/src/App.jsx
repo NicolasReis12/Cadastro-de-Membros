@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import AppLayout from './components/AppLayout'
 import PrivateRoute from './components/PrivateRoute'
 import { PermissionRoute, AdminRoute } from './components/PermissionRoute'
@@ -65,6 +65,7 @@ function App() {
 
               </Route>
             </Route>
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <ToastContainer toasts={toasts} onClose={removeToast} />
         </BrowserRouter>

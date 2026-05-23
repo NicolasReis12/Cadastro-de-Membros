@@ -95,6 +95,16 @@
   color: #4b4680;
 }
 
+.auth-sucesso {
+  color: #34d399;
+  font-size: 13px;
+  margin: 0;
+  background: rgba(52, 211, 153, 0.08);
+  border: 1px solid rgba(52, 211, 153, 0.25);
+  border-radius: 6px;
+  padding: 8px 10px;
+}
+
 .auth-erro {
   color: #f87171;
   font-size: 13px;

@@ -1,10 +1,12 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { supabase } from '../lib/supabase'
 import './Login.css'
 
 function Login() {
   const navigate = useNavigate()
+  const location = useLocation()
+  const mensagemSucesso = location.state?.mensagem ?? ''
   const [form, setForm] = useState({ email: '', senha: '' })
   const [erro, setErro] = useState('')
   const [carregando, setCarregando] = useState(false)
@@ -79,6 +81,7 @@ function Login() {
             />
           </div>
 
+          {mensagemSucesso && <p className="auth-sucesso">{mensagemSucesso}</p>}
           {erro && <p className="auth-erro">{erro}</p>}
 
           <button type="submit" className="auth-btn" disabled={carregando}>

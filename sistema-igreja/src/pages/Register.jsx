@@ -49,12 +49,18 @@ function Register() {
       user_id: data.user.id,
     })
 
-    setCarregando(false)
-
     if (insertError) {
-      setErro('Conta criada, mas erro ao salvar dados da igreja. Contate o suporte.')
+      // Conta criada mas igreja não vinculada — faz logout para não deixar sessão suja
+      await supabase.auth.signOut()
+      setCarregando(false)
+      setErro('Conta criada, mas erro ao salvar dados da igreja. Tente fazer login ou contate o suporte.')
       return
     }
+
+    // signOut garante que o AuthContext chega ao login em estado limpo,
+    // evitando race condition onde carregarUsuario roda antes do insert acima completar
+    await supabase.auth.signOut()
+    setCarregando(false)
 
     navigate('/login', { state: { mensagem: 'Conta criada com sucesso! Faça login para continuar.' } })
   }

@@ -1,24 +1,13 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
-import { useContext } from 'react'
 import { ToastContext } from '../App'
 
-function LoadingScreen() {
-  return (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#0f0e1a' }}>
-      <div style={{ color: '#a5b4fc', fontSize: 14 }}>Carregando...</div>
-    </div>
-  )
-}
-
 export function PermissionRoute({ modulo }) {
-  const { isAdmin, permissoes, loading } = useAuth()
+  const { isAdmin, permissoes } = useAuth()
   const { showToast } = useContext(ToastContext)
   const location = useLocation()
   const hasToasted = useRef(false)
-
-  if (loading) return <LoadingScreen />
 
   if (isAdmin || permissoes?.[modulo]) {
     hasToasted.current = false
@@ -34,9 +23,8 @@ export function PermissionRoute({ modulo }) {
 }
 
 export function AdminRoute() {
-  const { isAdmin, loading } = useAuth()
+  const { isAdmin } = useAuth()
 
-  if (loading) return <LoadingScreen />
   if (!isAdmin) return <Navigate to="/" replace />
 
   return <Outlet />

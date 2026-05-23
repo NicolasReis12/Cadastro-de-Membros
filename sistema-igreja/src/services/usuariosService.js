@@ -1,17 +1,12 @@
 import { createClient } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-function createTempClient() {
-  return createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-    },
-  })
-}
+// Cliente isolado para criar sub-usuários sem afetar a sessão do usuário logado
+const supabaseSignUp = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY,
+  { auth: { persistSession: false, autoRefreshToken: false } }
+)
 
 export async function getUsuarios(igrejaId) {
   const { data, error } = await supabase
@@ -24,8 +19,7 @@ export async function getUsuarios(igrejaId) {
 }
 
 export async function createUsuario({ nome, email, senha, igrejaId, permissoes, isSubAdmin = false }) {
-  const tempClient = createTempClient()
-  const { data: authData, error: authError } = await tempClient.auth.signUp({
+  const { data: authData, error: authError } = await supabaseSignUp.auth.signUp({
     email,
     password: senha,
   })

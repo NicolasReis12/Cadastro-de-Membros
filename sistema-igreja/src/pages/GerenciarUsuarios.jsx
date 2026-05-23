@@ -49,7 +49,7 @@ function GerenciarUsuarios() {
 
   useEffect(() => {
     if (igreja?.id) carregarUsuarios()
-  }, [igreja])
+  }, [igreja?.id])
 
   async function carregarUsuarios() {
     setCarregando(true)

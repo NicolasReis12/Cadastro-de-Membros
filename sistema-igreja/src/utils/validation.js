@@ -55,7 +55,7 @@ export const validateForm = (form, requiredFields) => {
     errors.telefone = 'Telefone inválido (10 ou 11 dígitos)'
   }
 
-  if (form.data_nascimento && form.data_nascimento) {
+  if (form.data_nascimento) {
     const dataNasc = new Date(form.data_nascimento)
     const hoje = new Date()
     if (dataNasc > hoje) {
